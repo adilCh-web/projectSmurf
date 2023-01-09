@@ -67,3 +67,12 @@ body{
     position:absolute;
     top:550px
 }
+
+#peppa{
+    position:absolute;
+    top:450px;
+    height:150px;
+    width:auto;
+    left:2430px;
+    z-index:75;
+}

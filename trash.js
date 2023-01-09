@@ -140,3 +140,11 @@ for(let i=0;i<10;i++){
     container.appendChild(div)
 
 }
+
+
+
+function myFunction(event) {
+    var x = event.touches[0].clientX;
+    var y = event.touches[0].clientY;
+    smurf.style.left =  x + "px"
+  }
