@@ -144,7 +144,33 @@ for(let i=0;i<10;i++){
 
 
 function myFunction(event) {
+    let previous = smurf.style.left.replace("px","")
     var x = event.touches[0].clientX;
-    var y = event.touches[0].clientY;
-    smurf.style.left =  x + "px"
+    //var y = event.touches[0].clientY;
+    if(previous > x){
+        smurf.style.left =  x + "px"
+        smurf.style.transform = "scaleX(-1)"
+        let walking = setInterval(() => {
+            smurf.style.left = (Number(smurf.style.left.replace("px","") ) - 3) + "px"
+            if(Number(smurf.style.left.replace("px",""))<x){
+                clearInterval(walking)
+            }
+        }, 500);
+    }
+    else if(previous<x){
+        smurf.style.left =  x + "px";
+        //smurf.style.top =  y + "px";
+        smurf.style.transform = "scaleX(1)"
+        let walking = setInterval(() => {
+            smurf.style.left = (Number(smurf.style.left.replace("px","") ) + 3) + "px"
+            if(Number(smurf.style.left.replace("px",""))>x){
+                clearInterval(walking)
+            }
+        }, 500);
+    }
+    else
+    {
+
+    }
+    
   }
