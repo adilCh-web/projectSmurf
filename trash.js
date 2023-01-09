@@ -1,3 +1,6 @@
+let container = document.querySelector(".container")
+
+
 //generatin the clouds
 function cloudGenerating(){
   
@@ -7,9 +10,9 @@ function cloudGenerating(){
     //creating an image (cloudObject)
     let cloud = document.createElement("img")
     cloud.className = "cloud";//giving it a class
-    cloud.setAttribute("src","pngwing.png") //sitting a source
-    cloud.style.left="1000px"
-    document.querySelector(".container").appendChild(cloud)
+    cloud.setAttribute("src","./img/pngwing.png") //sitting a source
+    cloud.style.left="3000px"
+    container.appendChild(cloud)
     let myInerval = setInterval(()=>{
         cloud.style.left = (parseFloat(cloud.style.left.replace("px","")) - 5) + "px";
         //console.log(cloud.style.left)
@@ -46,7 +49,7 @@ let  smurfObject = {
     facedright:true,
     canJump:true,
     movingLeft(){
-        smurfObject.positionLeft= smurfObject.positionLeft - 5
+        smurfObject.positionLeft= smurfObject.positionLeft - 10
         smurf.style.left = smurfObject.positionLeft+"px"
         if(smurfObject.facedright==true){
             smurf.style.transform = "scaleX(1)"
@@ -56,7 +59,7 @@ let  smurfObject = {
     },
 
     movingrRight(){
-        smurfObject.positionLeft= smurfObject.positionLeft + 5
+        smurfObject.positionLeft= smurfObject.positionLeft + 10
         smurf.style.left = smurfObject.positionLeft +"px";
         if(smurfObject.facedright==false){
             smurf.style.transform = "scaleX(-1)"
@@ -96,7 +99,7 @@ let  smurfObject = {
 
 }
 
-document.querySelector("body").addEventListener("keydown", (e) => {
+document.querySelector("body").addEventListener("keyup", (e) => {
     if (e.keyCode == 37) {
         smurfObject.movingLeft()
         console.log(smurfObject.positionLeft)
@@ -116,3 +119,24 @@ document.querySelector("body").addEventListener("keyup", (e)=>{
     };  
 
 })
+
+
+let trees = [{url:"./img/trees/cartoon-tree-1.png",height:300},
+{url:"./img/trees/cartoon-tree-2.png",height:250},{url:"./img/trees/cartoon-tree-3.png",height:400},{url:"./img/trees/cartoon-tree-4.png",height:550},{url:"./img/trees/cartoon-tree-5.png",height:500},{url:"./img/trees/cartoon-tree-6.png",height:450}]
+for(let i=0;i<10;i++){
+    let div = document.createElement("div")
+    div.className = "square";
+    div.style.left = Math.floor(Math.random() * 3000) +"px";
+    let img = document.createElement("img")
+    let treeObj = trees[Math.floor(Math.random()*6)]
+    img.setAttribute("src",treeObj.url)
+    img.style.position ="absolute"
+    img.style.left = Math.floor(Math.random() * 3000) +"px";
+    img.style.height = treeObj.height + "px"
+    img.style.top =  (600 - treeObj.height) +"px"
+    console.log(treeObj.height)   
+    console.log(treeObj.url)   
+    container.appendChild(img)
+    container.appendChild(div)
+
+}
