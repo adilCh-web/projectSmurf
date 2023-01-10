@@ -34,6 +34,7 @@ cloudGenerating()
 
 //setting the position of the smurf
 let smurf = document.getElementById("smurf")
+smurf.style.animationPlayState ="paused"
 smurf.style.left = "200px"
 smurf.style.top=  "500px"
 smurf.style.transform = "scaleX(-1)"//we turn the smurf by default to the right side
@@ -58,7 +59,7 @@ let  smurfObject = {
         }
     },
 
-    movingrRight(){
+    movingRight(){
         smurfObject.positionLeft= smurfObject.positionLeft + 10
         smurf.style.left = smurfObject.positionLeft +"px";
         if(smurfObject.facedright==false){
@@ -106,7 +107,7 @@ document.querySelector("body").addEventListener("keyup", (e) => {
        //console.log(smurf.style.top.replace("px",""))
     }
     else if(e.keyCode ==39){
-        smurfObject.movingrRight()
+        smurfObject.movingRight()
         //console.log(smurfObject.positionLeft)
         
     }
@@ -180,10 +181,11 @@ let sun = document.getElementById("sun");
 
 let count = 0
 sun.style.top ="10px"
-sun.style.left ="50%"
+sun.style.left ="40%"
 
 let switch_ =true
-  function switchingNightDay(){
+
+  function switchingNight(){
     if(switch_){
         //this should be the background color rgb(39, 39, 41) when the sun is completly gone
         //ps:the actual is rgb(39, 112, 247);
@@ -205,38 +207,81 @@ let switch_ =true
             container.style.backgroundColor= `rgb(39,${g},${b})`
             console.log(`rgb(39,${g},${b})`)
 
-            if(count>90){
+            if(count>100){
                 document.getElementById("moon").style.opacity =opacity
-                opacity+=0.025
+                opacity+=0.030
                 //console.log(opacity + "this is the opacity")
             }
             //here we change from fixed to absolute when the sun goes at the bottom of the container because fixed is fixed to the page and absolute is to the container
-            if(count == 65){
-                sun.style.opacity -= .1 
-            }
+
             if(Number(sun.style.top.replace("px",""))>800){
                 clearInterval(changeDayNight)
                 switch_ =true
             }
-        },400)
+        },100)
     }
 
 
 
   }
 
-  sun.addEventListener("click",switchingNightDay)
+  sun.addEventListener("click",switchingNight)
 
 let birds = document.getElementById("birds")
 birds.style.left = "6000px"
 
 function movingBird(){
 
-    setInterval(()=>{
-        if(Number(birds.style.left.replace("px",""))>100){
+    let movingBirdsInterval = setInterval(()=>{
+        if(Number(birds.style.left.replace("px",""))>-240){
             birds.style.left=(Number(birds.style.left.replace("px",""))-5) + "px"
+
+        }
+        else{
+            clearInterval(movingBirdsInterval)
+            birds.style.left = "7700px"
+            movingBird()
         }
 
-    },500)
+    },200)
 }
 movingBird()
+
+
+function switchingDay(){
+    //this is the opposite of the previos switchinNight
+    if(switch_){
+        //ps:the actual is rgb(39,39.45625000000045,42.28750000000078);
+        let g=39.45625000000045
+        let b = 42.28750000000078
+        //we assign the switch to false so we cant trigger the function till we are out of the interval --- see code below setinterval and clear
+        switch_ =false
+        // to display the moon:
+        let opacity=1
+    
+        let changeDayNight = setInterval(()=>{
+            sun.style.top = (Number(sun.style.top.replace("px",""))-5) + "px"
+            sun.style.left = (Number(sun.style.left.replace("px",""))+1) + "px";
+            console.log(Number(sun.style.left.replace("px","")))
+            count-=1
+            console.log(count) // the count will be 160 untill it dessapear completly
+            g+=(112-39)/160
+            b+=(247-41)/160
+            container.style.backgroundColor= `rgb(39,${g},${b})`
+            console.log(`rgb(39,${g},${b})`)
+
+            if(count<159){
+                document.getElementById("moon").style.opacity =opacity
+                opacity-=0.020
+                //console.log(opacity + "this is the opacity")
+            }
+            //here we change from fixed to absolute when the sun goes at the bottom of the container because fixed is fixed to the page and absolute is to the container
+
+            if(Number(sun.style.top.replace("px",""))<11){
+                clearInterval(changeDayNight)
+                switch_ =true
+            }
+        },100)
+    };}
+
+    document.getElementById("moon").addEventListener("click",switchingDay)
