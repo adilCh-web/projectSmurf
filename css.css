@@ -4,17 +4,18 @@
     box-sizing: border-box;
 }
 
-img{
+#sun{
     width: 200px;
     height:auto;
     position:fixed;
-    top:50px;
-    left: 100px;
+
+    z-index: 30;
 }
 .cloud{
     width: 300px;
     height:auto;
     position: absolute;
+    z-index:31
 }
 body{
     background-color: black;
@@ -30,12 +31,12 @@ body{
     z-index:100;
 }
 .container{
-    border:5px solid black;
-    height:620px;/*600*/
+    height:600px;/*600*/
+    width:8000px;
     position:relative;
     background-color:rgb(39, 112, 247);
-    overflow:scroll;
-    overflow-y: hidden;
+
+    /*background-color:rgb(39, 39, 41)*/
 
 
 }
@@ -50,12 +51,12 @@ body{
     z-index:50;
 }
 #gras{
-    width:3000px;
+    width:8000px;
     height:30px;
     background-color: rgb(72, 187, 72);
     position: absolute;
     top:570px;
-    z-index: 1;
+    z-index: 41;
 }
 
 .square
@@ -65,14 +66,54 @@ body{
     border:2px solid black;
     background-color:gray;
     position:absolute;
-    top:550px
+    top:550px;
+    z-index: 32;
 }
 
 #peppa{
     position:absolute;
-    top:450px;
-    height:150px;
+    top:350px;
+    height:250px;
     width:auto;
     left:2430px;
     z-index:75;
+}
+
+
+#moon
+{
+    opacity:0;
+    position:fixed;
+    top:20px;
+    left:25%;
+    z-index: 1;
+    width:300px;
+
+}
+
+#peppaHouse{
+    height:500px;
+    z-index: 45;
+    position: absolute;
+    left:3800px;
+    top:100px;
+}
+
+#screen
+{
+    max-width:800px;
+    height:600px;
+    overflow: hidden;
+    border:10px solid black;
+    overflow:scroll;
+    overflow-y: hidden;
+    position: relative;
+    margin:auto auto;
+
+}
+
+#birds{
+    position:absolute;
+    top:100px;
+    z-index:80
 }

@@ -11,7 +11,7 @@ function cloudGenerating(){
     let cloud = document.createElement("img")
     cloud.className = "cloud";//giving it a class
     cloud.setAttribute("src","./img/pngwing.png") //sitting a source
-    cloud.style.left="3000px"
+    cloud.style.left="2700px"
     container.appendChild(cloud)
     let myInerval = setInterval(()=>{
         cloud.style.left = (parseFloat(cloud.style.left.replace("px","")) - 5) + "px";
@@ -123,17 +123,18 @@ document.querySelector("body").addEventListener("keyup", (e)=>{
 
 let trees = [{url:"./img/trees/cartoon-tree-1.png",height:300},
 {url:"./img/trees/cartoon-tree-2.png",height:250},{url:"./img/trees/cartoon-tree-3.png",height:400},{url:"./img/trees/cartoon-tree-4.png",height:550},{url:"./img/trees/cartoon-tree-5.png",height:500},{url:"./img/trees/cartoon-tree-6.png",height:450}]
-for(let i=0;i<10;i++){
+for(let i=0;i<20;i++){
     let div = document.createElement("div")
     div.className = "square";
-    div.style.left = Math.floor(Math.random() * 3000) +"px";
+    div.style.left = Math.floor(Math.random() * 7700) +"px";
     let img = document.createElement("img")
     let treeObj = trees[Math.floor(Math.random()*6)]
     img.setAttribute("src",treeObj.url)
     img.style.position ="absolute"
-    img.style.left = Math.floor(Math.random() * 3000) +"px";
+    img.style.left = Math.floor(Math.random() * 7700) +"px";
     img.style.height = treeObj.height + "px"
     img.style.top =  (600 - treeObj.height) +"px"
+    img.style.zIndex = 40
     console.log(treeObj.height)   
     console.log(treeObj.url)   
     container.appendChild(img)
@@ -174,3 +175,68 @@ function myFunction(event) {
     }
     
   }
+
+let sun = document.getElementById("sun");
+
+let count = 0
+sun.style.top ="10px"
+sun.style.left ="50%"
+
+let switch_ =true
+  function switchingNightDay(){
+    if(switch_){
+        //this should be the background color rgb(39, 39, 41) when the sun is completly gone
+        //ps:the actual is rgb(39, 112, 247);
+        let g=112
+        let b = 247
+        //we assign the switch to false so we cant trigger the function till we are out of the interval --- see code below setinterval and clear
+        switch_ =false
+        // to display the moon:
+        let opacity=0
+    
+        let changeDayNight = setInterval(()=>{
+            sun.style.top = (Number(sun.style.top.replace("px",""))+5) + "px"
+            sun.style.left = (Number(sun.style.left.replace("px",""))-1) + "px";
+            console.log(Number(sun.style.left.replace("px","")))
+            count+=1
+            console.log(count) // the count will be 160 untill it dessapear completly
+            g-=(112-39)/160
+            b-=(247-41)/160
+            container.style.backgroundColor= `rgb(39,${g},${b})`
+            console.log(`rgb(39,${g},${b})`)
+
+            if(count>90){
+                document.getElementById("moon").style.opacity =opacity
+                opacity+=0.025
+                //console.log(opacity + "this is the opacity")
+            }
+            //here we change from fixed to absolute when the sun goes at the bottom of the container because fixed is fixed to the page and absolute is to the container
+            if(count == 65){
+                sun.style.opacity -= .1 
+            }
+            if(Number(sun.style.top.replace("px",""))>800){
+                clearInterval(changeDayNight)
+                switch_ =true
+            }
+        },400)
+    }
+
+
+
+  }
+
+  sun.addEventListener("click",switchingNightDay)
+
+let birds = document.getElementById("birds")
+birds.style.left = "6000px"
+
+function movingBird(){
+
+    setInterval(()=>{
+        if(Number(birds.style.left.replace("px",""))>100){
+            birds.style.left=(Number(birds.style.left.replace("px",""))-5) + "px"
+        }
+
+    },500)
+}
+movingBird()
